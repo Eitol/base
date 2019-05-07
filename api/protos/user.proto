@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package api.gen;
+
+option go_package = "genpb";
+option java_multiple_files = true;
+option java_outer_classname = "UserProto";
+option java_package = "com.api.gen";
+
+import "google/api/annotations.proto";
+
+service UserService {
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/login"
+      body: "*"
+    };
+  }
+  rpc SignUp(SignUpReq) returns (SignUpResp) {
+    option (google.api.http) = {
+      post: "/signup"
+      body: "*"
+    };
+  }
+}
+
+message LoginReq {
+  string email = 1;
+  string password = 2;
+  string device_uuid = 3;
+}
+
+message LoginResp {
+  User user = 1;
+  string token = 2;
+}
+
+message SignUpReq {
+  User user = 1;
+}
+
+message SignUpResp {
+  User user = 1;
+}
+
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string password = 4;
+}

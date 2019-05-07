@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package api.gen;
+
+option go_package = "genpb";
+option java_multiple_files = true;
+option java_outer_classname = "CerrorProto";
+option java_package = "com.api.gen";
+
+import "google/api/annotations.proto";
+
+message Error {
+  uint32 type = 1;
+  string internal_code = 2;
+  string text = 3;
+  string description = 4;
+  string reason = 5;
+  string is_sensible = 6;
+  string need_report = 7;
+  map<string, string> meta = 8;
+  Error comes_from = 9;
+}

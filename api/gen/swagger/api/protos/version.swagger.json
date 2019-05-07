@@ -1,0 +1,58 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/protos/version.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/info": {
+      "get": {
+        "operationId": "GetInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/genServerInfo"
+            }
+          }
+        },
+        "tags": [
+          "ServerInfoService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "genServerInfo": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "compilation": {
+          "type": "string"
+        },
+        "compilation_time_str": {
+          "type": "string"
+        },
+        "server_time_str": {
+          "type": "string"
+        },
+        "server_time_ts": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}
