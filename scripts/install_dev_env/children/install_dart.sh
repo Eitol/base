@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+DARTBIN=/usr/lib/dart/bin
+DART_PLUG_BIN=/usr/local/bin/protoc_dart_plugin/protoc_plugin/bin
 
 if [[ ! -e "/etc/apt/sources.list.d/dart_stable.list" ]]; then
     #Enable HTTPS for apt.
@@ -13,16 +15,13 @@ if [[ ! -e "/etc/apt/sources.list.d/dart_stable.list" ]]; then
     sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
     sudo apt-get update
     sudo apt-get install dart
-
-    echo "export PATH=\$PATH:/usr/lib/dart/bin" | sudo tee -a /etc/profile
-    echo "export PATH=\$PATH:/usr/lib/dart/bin" | sudo tee -a ~/.bashrc
     pub global activate protoc_plugin
 
     source /etc/profile
 fi
 
 
-if [[ ! -e "/usr/local/bin/protoc_dart_plugin/bin/protoc-gen-dart" ]]; then
+if [[ ! -e "${DART_PLUG_BIN}" ]]; then
     sudo rm -f /usr/local/bin/protoc-gen-dart
     mkdir /tmp/dart
     cd /tmp/dart
@@ -33,8 +32,11 @@ if [[ ! -e "/usr/local/bin/protoc_dart_plugin/bin/protoc-gen-dart" ]]; then
     pub install
     cd ../../
     sudo cp -r protoc_dart_plugin /usr/local/bin/
-    echo "export PATH=\$PATH:/usr/local/bin/protoc_dart_plugin/protoc_plugin/bin" | sudo tee -a /etc/profile
-    echo "export PATH=\$PATH:/usr/local/bin/protoc_dart_plugin/protoc_plugin/bin" | sudo tee -a ~/.bashrc
+
+fi
+
+if [[ "$(cat ~/.bashrc | grep ${DARTBIN})" == "" ]]; then
+        echo "export PATH=$PATH:${DARTBIN}:${DART_PLUG_BIN}" >> ~/.bashrc
 fi
 
 source ~/.bashrc

@@ -4,7 +4,7 @@ package api.gen;
 
 option go_package = "genpb";
 option java_multiple_files = true;
-option java_outer_classname = "VersionProto";
+option java_outer_classname = "ServerInfoProto";
 option java_package = "com.api.gen";
 
 import "google/api/annotations.proto";

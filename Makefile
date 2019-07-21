@@ -16,7 +16,7 @@ init:
 proto: ## Generate source code from protos
 	@bash ./scripts/codegen/generate_code_from_proto.sh
 
-install:
+install_dev_env:
 	@bash ./scripts/install_dev_env/install_dev_env.sh
 
 grapi_pkg:
@@ -25,4 +25,4 @@ grapi_pkg:
 clean:
 	@bash ./scripts/codegen/clean/clean.sh
 
-.PHONY: gen_version server init proto install grapi_pkg clean
+.PHONY: gen_version server init proto install_dev_env grapi_pkg clean

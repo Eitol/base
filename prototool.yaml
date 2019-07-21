@@ -38,9 +38,9 @@ generate:
       output: ./api/gen/go
     - name: swagger
       output: ./api/gen/swagger
-#    - name: python
-#      output: ./api/gen/python
-#    - name: dart
-#      path: protoc-gen-dart
-#      flags: grpc
-#      output: ./api/gen/dart
+    - name: python
+      output: ./api/gen/python
+    - name: dart
+      path: protoc-gen-dart
+      flags: grpc
+      output: ./api/gen/dart
