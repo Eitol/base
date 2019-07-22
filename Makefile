@@ -1,8 +1,8 @@
 
 all:
-	make install
+	make install_dev_env
 	make proto
-	make grapi_pkgw
+	make grapi_pkg
 
 gen_version:
 	@cd ./scripts && bash ./change_project_version.sh
