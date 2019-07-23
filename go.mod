@@ -11,7 +11,8 @@ require (
 	github.com/gogo/googleapis v1.2.0
 	github.com/gogo/protobuf v1.2.1
 	github.com/golang/protobuf v1.3.2
-	github.com/grpc-ecosystem/grpc-gateway v1.9.4
+	github.com/google/pprof v0.0.0-20190723021845-34ac40c74b70 // indirect
+	github.com/grpc-ecosystem/grpc-gateway v1.9.5
 	github.com/iancoleman/strcase v0.0.0-20190422225806-e506e3ef7365
 	github.com/izumin5210/grapi v0.4.0
 	github.com/joho/godotenv v1.3.0
@@ -24,7 +25,7 @@ require (
 	golang.org/x/net v0.0.0-20190628185345-da137c7871d7 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	golang.org/x/sys v0.0.0-20190712062909-fae7ac547cb7 // indirect
-	golang.org/x/tools v0.0.0-20190719005602-e377ae9d6386 // indirect
+	golang.org/x/tools v0.0.0-20190723021737-8bb11ff117ca // indirect
 	google.golang.org/genproto v0.0.0-20190716160619-c506a9f90610
 	google.golang.org/grpc v1.22.0
 	gopkg.in/yaml.v2 v2.2.2 // indirect

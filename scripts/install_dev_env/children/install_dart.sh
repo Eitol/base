@@ -2,6 +2,7 @@
 
 DARTBIN=/usr/lib/dart/bin
 DART_PLUG_BIN=/usr/local/bin/protoc_dart_plugin/protoc_plugin/bin
+DART_PUB_HOME=~/.pub-cache/bin
 
 if [[ ! -e "/etc/apt/sources.list.d/dart_stable.list" ]]; then
     #Enable HTTPS for apt.
@@ -16,7 +17,7 @@ if [[ ! -e "/etc/apt/sources.list.d/dart_stable.list" ]]; then
     sudo apt-get update
     sudo apt-get install dart -y
     pub global activate protoc_plugin
-
+    .pub-cache/bin
     source /etc/profile
 fi
 
@@ -36,7 +37,7 @@ if [[ ! -e "${DART_PLUG_BIN}" ]]; then
 fi
 
 if [[ "$(cat ~/.bashrc | grep ${DARTBIN})" == "" ]]; then
-        echo "export PATH=$PATH:${DARTBIN}:${DART_PLUG_BIN}" >> ~/.bashrc
+        echo "export PATH=$PATH:${DARTBIN}:${DART_PLUG_BIN};${DART_PUB_HOME}" >> ~/.bashrc
 fi
 
 source ~/.bashrc
