@@ -4,7 +4,7 @@ import sys
 
 GO_MOD_FILE_NAME = "go.mod"
 GO_FILE_EXTENSION = ".go"
-DEFAULT_ROOT_DIR = "../"
+DEFAULT_ROOT_DIR = "./"
 MIN_NAME_LEN = 2
 MAX_NAME_LEN = 30
 
@@ -29,10 +29,15 @@ def change_module_name_in_file(dir_: str, file_name: str, current_name: str, new
 
 
 def get_module_name(root_path_: str) -> str:
-    with open("{}/{}".format(root_path_, GO_MOD_FILE_NAME), "r") as f:
-        line = f.readline()
-        if line.startswith("module "):
-            return line.strip().split()[1]
+    file = "{}/{}".format(root_path_, GO_MOD_FILE_NAME)
+    try:
+        with open("{}/{}".format(root_path_, GO_MOD_FILE_NAME), "r") as f:
+            line = f.readline()
+            if line.startswith("module "):
+                return line.strip().split()[1]
+    except FileNotFoundError:
+        print("ERROR: not {} file in {}".format(GO_MOD_FILE_NAME, file))
+        exit(1)
     return ""
 
 
@@ -50,7 +55,7 @@ def validate_new_name(new_name: str) -> (bool, str):
         return False, "Min len must be > {}".format(MIN_NAME_LEN)
     if len(new_name) > MAX_NAME_LEN:
         return False, "Max len must be < {}".format(MAX_NAME_LEN)
-    pattern = r'[a-z][a-z1-9/]{0,{MAX-1}}[a-z1-9]{{MIN},{MAX-1}}$' \
+    pattern = r'[a-z][a-z1-9_/]{0,{MAX-1}}[a-z1-9]{{MIN},{MAX-1}}$' \
         .replace("{MIN}", str(MIN_NAME_LEN)) \
         .replace("{MAX}", str(MAX_NAME_LEN)) \
         .replace("{MAX-1}", str(MAX_NAME_LEN - 1))
@@ -86,10 +91,18 @@ if __name__ == '__main__':
         exit(1)
     root_path = get_root_path()
     new_name_ = sys.argv[1]
+    if new_name_ == "invalid":
+        print("ERROR: invalid name")
+        print("Usage:   make init new_name=NEW_NAME")
+        print("Example: make init new_name=payment_api")
+        exit(1)
     is_valid_name, error = validate_new_name(new_name_)
     if not is_valid_name:
         print("Invalid module name '{}'. Error: {}", new_name_, error)
         exit(1)
     current_name_ = get_module_name(DEFAULT_ROOT_DIR)
+    if current_name_ == new_name_:
+        print("Is the same module name '{}'. Error: {}", new_name_)
+        exit(1)
     print("Current module name == {}".format(current_name_))
     change_module_name_in_dir(DEFAULT_ROOT_DIR, current_name_, new_name_)
