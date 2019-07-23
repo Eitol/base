@@ -1,3 +1,4 @@
+new_name?="invalid"
 
 all:
 	make install_dev_env
@@ -11,7 +12,7 @@ server:
 	@go build -o ${OUT} ./cmd/server/main.go
 
 init:
-	@bash ./scripts/change_base_import.sh
+	@bash ./scripts/change_base_import.sh ${new_name}
 
 proto: ## Generate source code from protos
 	@bash ./scripts/codegen/generate_code_from_proto.sh
