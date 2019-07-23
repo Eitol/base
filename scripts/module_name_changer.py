@@ -14,8 +14,7 @@ def change_module_name_in_file(dir_: str, file_name: str, current_name: str, new
         return
     file_path = "{}/{}".format(dir_, file_name)
     with open(file_path, "r+")as f:
-        content = f.readline()
-        content_new = ""
+        content = f.read()
         if file_name == GO_MOD_FILE_NAME:
             content_new = content.replace("module {}".format(current_name), "module {}".format(new_name))
         elif file_name.endswith(GO_FILE_EXTENSION):
@@ -26,12 +25,11 @@ def change_module_name_in_file(dir_: str, file_name: str, current_name: str, new
             return
         f.seek(0)
         f.write(content_new)
-        f.truncate()
         print("Changed file:{}".format(file_path))
 
 
-def get_module_name(root_path: str) -> str:
-    with open("{}/{}".format(root_path, GO_MOD_FILE_NAME), "r") as f:
+def get_module_name(root_path_: str) -> str:
+    with open("{}/{}".format(root_path_, GO_MOD_FILE_NAME), "r") as f:
         line = f.readline()
         if line.startswith("module "):
             return line.strip().split()[1]
@@ -39,7 +37,8 @@ def get_module_name(root_path: str) -> str:
 
 
 def change_module_name_in_dir(dir_: str, current_name: str, new_name: str):
-    for root, dirs, files in os.walk(dir_):
+    change_module_name_in_file(dir_, GO_MOD_FILE_NAME, current_name, new_name)
+    for root, dirs, files in os.walk("{}/{}".format(dir_, "app"), topdown=True):
         for file in files:
             change_module_name_in_file(root, file, current_name, new_name)
 
@@ -93,4 +92,4 @@ if __name__ == '__main__':
         exit(1)
     current_name_ = get_module_name(DEFAULT_ROOT_DIR)
     print("Current module name == {}".format(current_name_))
-    change_module_name_in_dir(DEFAULT_ROOT_DIR, current_name_, sys.argv[2])
+    change_module_name_in_dir(DEFAULT_ROOT_DIR, current_name_, new_name_)

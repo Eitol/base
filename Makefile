@@ -12,7 +12,7 @@ server:
 	@go build -o ${OUT} ./cmd/server/main.go
 
 init:
-	@bash ./scripts/change_base_import.sh ${new_name}
+	@python3 ./scripts/module_name_changer.py ${new_name}
 
 proto: ## Generate source code from protos
 	@bash ./scripts/codegen/generate_code_from_proto.sh
