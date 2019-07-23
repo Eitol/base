@@ -23,7 +23,7 @@ check_if_fail(){
       exit 1
    fi
 }
-
+sudo apt install -y curl wget build-essentials git
 bash ${PWD}/scripts/install_dev_env/children/install_go.sh
 check_if_fail install_go.sh
 bash ${PWD}/scripts/install_dev_env/children/install_grapi.sh
@@ -40,3 +40,4 @@ bash ${PWD}/scripts/install_dev_env/children/install_python_deps.sh
 check_if_fail install_python_deps.sh
 bash ${PWD}/scripts/install_dev_env/children/install_dart.sh
 check_if_fail install_dart.sh
+echo "OK Ready.... restart exit the terminal to use make proto"

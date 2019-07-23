@@ -6,7 +6,7 @@ DART_PLUG_BIN=/usr/local/bin/protoc_dart_plugin/protoc_plugin/bin
 if [[ ! -e "/etc/apt/sources.list.d/dart_stable.list" ]]; then
     #Enable HTTPS for apt.
     sudo apt-get update
-    sudo apt-get install apt-transport-https
+    sudo apt-get install apt-transport-https -y
 
     #Get the Google Linux package signing key.
     sudo sh -c 'curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
@@ -14,7 +14,7 @@ if [[ ! -e "/etc/apt/sources.list.d/dart_stable.list" ]]; then
     #Set up the location of the stable repository.
     sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
     sudo apt-get update
-    sudo apt-get install dart
+    sudo apt-get install dart -y
     pub global activate protoc_plugin
 
     source /etc/profile
